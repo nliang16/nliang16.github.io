@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nancy Liang</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f5f0e8;
+      --ink: #1a1612;
+      --accent: #c0392b;
+      --muted: #7a7068;
+      --card: #eee8d8;
+      --border: #d4c9b0;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 4rem;
+      background: rgba(245, 240, 232, 0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      color: var(--ink);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--ink); }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 8rem 4rem 4rem;
+      position: relative;
+    }
+
+    .hero-content {
+      max-width: 700px;
+      animation: fadeUp 0.9s ease both;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.5rem, 8vw, 6rem);
+      line-height: 1.05;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-name em {
+      font-style: italic;
+      color: var(--muted);
+    }
+
+    .hero-tagline {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 500px;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-links {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 2rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1.5px solid var(--ink);
+      color: var(--ink);
+      transition: all 0.25s;
+    }
+
+    .btn:hover {
+      background: var(--ink);
+      color: var(--bg);
+    }
+
+    .btn-ghost {
+      border-color: var(--border);
+      color: var(--muted);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--ink);
+      background: transparent;
+      color: var(--ink);
+    }
+
+    .hero-decoration {
+      position: absolute;
+      right: 4rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: 'Playfair Display', serif;
+      font-size: 20vw;
+      font-style: italic;
+      color: transparent;
+      -webkit-text-stroke: 1px var(--border);
+      pointer-events: none;
+      user-select: none;
+      opacity: 0.5;
+      animation: fadeIn 1.2s ease 0.3s both;
+    }
+
+    /* SECTIONS */
+    section {
+      padding: 7rem 4rem;
+    }
+
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 3rem;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      max-width: 60px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 400;
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ABOUT */
+    #about {
+      background: var(--card);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+      max-width: 1100px;
+    }
+
+    .about-text p {
+      color: var(--muted);
+      margin-bottom: 1.2rem;
+      font-size: 1rem;
+    }
+
+    .about-text p:first-of-type {
+      font-size: 1.15rem;
+      color: var(--ink);
+    }
+
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 2rem;
+    }
+
+    .skill-tag {
+      padding: 0.3rem 0.9rem;
+      border: 1px solid var(--border);
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+    }
+
+    .about-sidebar h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      margin-top: 2.5rem;
+    }
+
+    .about-sidebar h3:first-child { margin-top: 0; }
+
+    .about-sidebar p, .about-sidebar li {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .about-sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .about-sidebar li::before {
+      content: '— ';
+      color: var(--accent);
+    }
+
+    /* PORTFOLIO */
+    #portfolio {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .portfolio-intro {
+      color: var(--muted);
+      max-width: 500px;
+      margin-bottom: 4rem;
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5px;
+      background: var(--border);
+      border: 1.5px solid var(--border);
+    }
+
+    .project-card {
+      background: var(--bg);
+      padding: 2.5rem;
+      transition: background 0.2s;
+      cursor: default;
+    }
+
+    .project-card:hover {
+      background: var(--card);
+    }
+
+    .project-number {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 2rem;
+      color: var(--border);
+      margin-bottom: 1.5rem;
+    }
+
+    .project-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .project-desc {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .project-tag {
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 0.2rem 0.6rem;
+      opacity: 0.7;
+    }
+
+    .coming-soon {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      min-height: 200px;
+      color: var(--border);
+    }
+
+    .coming-soon span {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 3rem 4rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer p {
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--ink); }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 0.5; }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      #hero, section, footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .hero-decoration { display: none; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      footer { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#hero" class="nav-logo">Nancy Liang</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="mailto:nanliang@seas.upenn.edu">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-content">
+      <p class="hero-eyebrow">Computer Science · University of Pennsylvania</p>
+      <h1 class="hero-name">Nancy<br/><em>Liang</em></h1>
+      <p class="hero-tagline">
+        CS & data science student interested in machine learning, distributed systems, and building things that matter.
+      </p>
+      <div class="hero-links">
+        <a href="#portfolio" class="btn">View Portfolio</a>
+        <a href="https://github.com" target="_blank" class="btn btn-ghost">GitHub ↗</a>
+        <a href="https://linkedin.com" target="_blank" class="btn btn-ghost">LinkedIn ↗</a>
+      </div>
+    </div>
+    <div class="hero-decoration" aria-hidden="true">NL</div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-grid">
+      <div class="about-text">
+        <div class="section-label">About</div>
+        <h2 class="section-title">A little about me</h2>
+        <p>
+          Hi! I'm Nancy, a computer science student at the University of Pennsylvania's School of Engineering and Applied Science.
+        </p>
+        <p>
+          I'm passionate about machine learning, data analysis, and building systems that solve real problems. I enjoy understanding how things work under the hood — from how models learn to how data moves through distributed systems.
+        </p>
+        <p>
+          Currently exploring product management alongside my technical studies, and always looking for opportunities to build and collaborate.
+        </p>
+        <div class="skills-list">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">C++</span>
+          <span class="skill-tag">PyTorch</span>
+          <span class="skill-tag">SQL</span>
+          <span class="skill-tag">Spark</span>
+          <span class="skill-tag">Machine Learning</span>
+          <span class="skill-tag">Data Analysis</span>
+        </div>
+      </div>
+      <div class="about-sidebar">
+        <h3>Education</h3>
+        <p>B.S. Computer Science<br/>University of Pennsylvania, SEAS</p>
+
+        <h3>Current Coursework</h3>
+        <ul>
+          <li>CIS 521 — Artificial Intelligence</li>
+          <li>CIS 5450 — Big Data Analytics</li>
+          <li>EAS 5470 — Product Management</li>
+        </ul>
+
+        <h3>Interests</h3>
+        <ul>
+          <li>Deep Learning</li>
+          <li>Distributed Systems</li>
+          <li>Product Strategy</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section id="portfolio">
+    <div class="section-label">Work</div>
+    <h2 class="section-title">Portfolio</h2>
+    <p class="portfolio-intro">Projects coming soon — check back as I build things worth sharing.</p>
+    <div class="portfolio-grid">
+      <!-- Project cards — uncomment and fill in as you build projects -->
+
+      <!--
+      <div class="project-card">
+        <div class="project-number">01</div>
+        <h3 class="project-title">Project Name</h3>
+        <p class="project-desc">Short description of what the project does and what you learned.</p>
+        <div class="project-tags">
+          <span class="project-tag">Python</span>
+          <span class="project-tag">PyTorch</span>
+        </div>
+      </div>
+      -->
+
+      <div class="project-card coming-soon">
+        <div class="project-number">01</div>
+        <span>In progress...</span>
+      </div>
+      <div class="project-card coming-soon">
+        <div class="project-number">02</div>
+        <span>Coming soon</span>
+      </div>
+      <div class="project-card coming-soon">
+        <div class="project-number">03</div>
+        <span>Coming soon</span>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 Nancy Liang</p>
+    <div class="footer-links">
+      <a href="mailto:nanliang@seas.upenn.edu">Email</a>
+      <a href="https://github.com" target="_blank">GitHub</a>
+      <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+    </div>
+  </footer>
+
+</body>
+</html>
