@@ -288,6 +288,80 @@
       background: var(--card);
     }
 
+    .project-card.has-link {
+      cursor: pointer;
+    }
+
+    .project-card.has-link:hover {
+      background: var(--card);
+    }
+
+    .project-card.has-bg-image {
+      position: relative;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      overflow: hidden;
+    }
+
+    .project-card.has-bg-image::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(26, 22, 18, 0.45) 0%,
+        rgba(26, 22, 18, 0.75) 60%,
+        rgba(26, 22, 18, 0.92) 100%
+      );
+      transition: opacity 0.3s;
+    }
+
+    .project-card.has-bg-image:hover::before {
+      opacity: 0.85;
+    }
+
+    .project-card.has-bg-image > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .project-card.has-bg-image .project-number {
+      color: rgba(245, 240, 232, 0.25);
+    }
+
+    .project-card.has-bg-image .project-title {
+      color: #f5f0e8;
+    }
+
+    .project-card.has-bg-image .project-desc {
+      color: rgba(245, 240, 232, 0.75);
+    }
+
+    .project-card.has-bg-image .project-award {
+      color: rgba(245, 240, 232, 0.7);
+      border-color: rgba(245, 240, 232, 0.25);
+    }
+
+    .project-card.has-bg-image .project-award::before {
+      color: #e8a598;
+    }
+
+    .project-card.has-bg-image .project-tag {
+      color: #e8a598;
+      border-color: rgba(232, 165, 152, 0.5);
+    }
+
+    .project-card.has-bg-image .project-link {
+      color: #f5f0e8;
+      border-color: rgba(245, 240, 232, 0.35);
+    }
+
+    .project-card.has-bg-image .project-link:hover {
+      color: #e8a598;
+      border-color: #e8a598;
+    }
+
     .project-number {
       font-family: 'Playfair Display', serif;
       font-style: italic;
@@ -312,6 +386,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 0.5rem;
+      margin-bottom: 1.5rem;
     }
 
     .project-tag {
@@ -322,6 +397,51 @@
       border: 1px solid var(--accent);
       padding: 0.2rem 0.6rem;
       opacity: 0.7;
+    }
+
+    .project-award {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 0.25rem 0.65rem;
+      margin-right: 0.4rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .project-award::before {
+      content: '✦';
+      font-size: 0.6rem;
+      color: var(--accent);
+    }
+
+    .project-awards {
+      display: flex;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.1rem;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .project-link:hover {
+      color: var(--accent);
+      border-color: var(--accent);
     }
 
     .coming-soon {
@@ -467,26 +587,26 @@
   <section id="portfolio">
     <div class="section-label">Work</div>
     <h2 class="section-title">Portfolio</h2>
-    <p class="portfolio-intro">Projects coming soon — check back as I build things worth sharing.</p>
+    <p class="portfolio-intro">A selection of projects I've built and shipped.</p>
     <div class="portfolio-grid">
-      <!-- Project cards — uncomment and fill in as you build projects -->
 
-      <!--
-      <div class="project-card">
+      <div class="project-card has-link has-bg-image" style="background-image: url('https://i.imgur.com/aX5g4rs.png')">
         <div class="project-number">01</div>
-        <h3 class="project-title">Project Name</h3>
-        <p class="project-desc">Short description of what the project does and what you learned.</p>
-        <div class="project-tags">
-          <span class="project-tag">Python</span>
-          <span class="project-tag">PyTorch</span>
+        <h3 class="project-title">Nara</h3>
+        <p class="project-desc">A Chrome extension designed to give users a gentle, joyful start to their day — combating doom-scrolling with beautiful category-based to-do lists and a small reward system for completing tasks.</p>
+        <div class="project-awards">
+          <span class="project-award">Top 3 Overall — MCIT Hackathon 2025</span>
+          <span class="project-award">Most Artful Design</span>
         </div>
+        <div class="project-tags">
+          <span class="project-tag">HTML</span>
+          <span class="project-tag">CSS</span>
+          <span class="project-tag">JavaScript</span>
+          <span class="project-tag">Chrome Extension</span>
+        </div>
+        <a href="https://devpost.com/software/nara-dkozgj" target="_blank" class="project-link">View on Devpost ↗</a>
       </div>
-      -->
 
-      <div class="project-card coming-soon">
-        <div class="project-number">01</div>
-        <span>In progress...</span>
-      </div>
       <div class="project-card coming-soon">
         <div class="project-number">02</div>
         <span>Coming soon</span>
