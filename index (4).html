@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nancy Liang</title>
+  <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f0f2f5;
+      --ink: #1c2028;
+      --accent: #5b7fa6;
+      --muted: #7a8494;
+      --card: #e5e8ee;
+      --border: #c8cdd8;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 4rem;
+      background: rgba(240, 242, 245, 0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Jost', sans-serif;
+      font-size: 1.2rem;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      color: var(--ink);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--ink); }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 8rem 4rem 4rem;
+      position: relative;
+    }
+
+    .hero-content {
+      max-width: 700px;
+      animation: fadeUp 0.9s ease both;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-name {
+      font-family: 'Jost', sans-serif;
+      font-size: clamp(3.5rem, 8vw, 6rem);
+      line-height: 1.05;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-name em {
+      font-style: italic;
+      color: var(--muted);
+    }
+
+    .hero-tagline {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 500px;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-links {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 2rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1.5px solid var(--ink);
+      color: var(--ink);
+      transition: all 0.25s;
+    }
+
+    .btn:hover {
+      background: var(--ink);
+      color: var(--bg);
+    }
+
+    .btn-ghost {
+      border-color: var(--border);
+      color: var(--muted);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--ink);
+      background: transparent;
+      color: var(--ink);
+    }
+
+    .hero-decoration {
+      position: absolute;
+      right: 4rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: 'Jost', sans-serif;
+      font-size: 20vw;
+      font-style: italic;
+      color: transparent;
+      -webkit-text-stroke: 1px var(--border);
+      pointer-events: none;
+      user-select: none;
+      opacity: 0.5;
+      animation: fadeIn 1.2s ease 0.3s both;
+    }
+
+    /* SECTIONS */
+    section {
+      padding: 7rem 4rem;
+    }
+
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 3rem;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      max-width: 60px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .section-title {
+      font-family: 'Jost', sans-serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 400;
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ABOUT */
+    #about {
+      background: var(--card);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+      max-width: 1100px;
+    }
+
+    .about-text p {
+      color: var(--muted);
+      margin-bottom: 1.2rem;
+      font-size: 1rem;
+    }
+
+    .about-text p:first-of-type {
+      font-size: 1.15rem;
+      color: var(--ink);
+    }
+
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 2rem;
+    }
+
+    .skill-tag {
+      padding: 0.3rem 0.9rem;
+      border: 1px solid var(--border);
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+    }
+
+    .about-sidebar h3 {
+      font-family: 'Jost', sans-serif;
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      margin-top: 2.5rem;
+    }
+
+    .about-sidebar h3:first-child { margin-top: 0; }
+
+    .about-sidebar p, .about-sidebar li {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .about-sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .about-sidebar li::before {
+      content: '— ';
+      color: var(--accent);
+    }
+
+    /* PORTFOLIO */
+    #portfolio {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .portfolio-intro {
+      color: var(--muted);
+      max-width: 500px;
+      margin-bottom: 4rem;
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5px;
+      background: var(--border);
+      border: 1.5px solid var(--border);
+    }
+
+    .project-card {
+      background: var(--bg);
+      padding: 2.5rem;
+      transition: background 0.2s;
+      cursor: default;
+    }
+
+    .project-card:hover {
+      background: var(--card);
+    }
+
+    .project-card.has-link {
+      cursor: pointer;
+    }
+
+    .project-card.has-link:hover {
+      background: var(--card);
+    }
+
+    .project-card.has-bg-image {
+      position: relative;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      overflow: hidden;
+    }
+
+    .project-card.has-bg-image::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.45) 0%,
+        rgba(255, 255, 255, 0.72) 60%,
+        rgba(255, 255, 255, 0.88) 100%
+      );
+      transition: opacity 0.3s;
+    }
+
+    .project-card.has-bg-image:hover::before {
+      opacity: 1;
+    }
+
+    .project-card.has-bg-image > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .project-card.has-bg-image .project-number {
+      color: rgba(28, 32, 40, 0.2);
+    }
+
+    .project-card.has-bg-image .project-title {
+      color: var(--ink);
+    }
+
+    .project-card.has-bg-image .project-desc {
+      color: var(--muted);
+    }
+
+    .project-card.has-bg-image .project-award {
+      color: var(--muted);
+      border-color: rgba(28, 32, 40, 0.2);
+    }
+
+    .project-card.has-bg-image .project-award::before {
+      color: var(--accent);
+    }
+
+    .project-card.has-bg-image .project-tag {
+      color: var(--accent);
+      border-color: rgba(91, 127, 166, 0.5);
+    }
+
+    .project-card.has-bg-image .project-link {
+      color: var(--ink);
+      border-color: rgba(28, 32, 40, 0.25);
+    }
+
+    .project-card.has-bg-image .project-link:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .project-number {
+      font-family: 'Jost', sans-serif;
+      font-style: italic;
+      font-size: 2rem;
+      color: var(--border);
+      margin-bottom: 1.5rem;
+    }
+
+    .project-title {
+      font-family: 'Jost', sans-serif;
+      font-size: 1.3rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .project-desc {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .project-tag {
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 0.2rem 0.6rem;
+      opacity: 0.7;
+    }
+
+    .project-award {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 0.25rem 0.65rem;
+      margin-right: 0.4rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .project-award::before {
+      content: '✦';
+      font-size: 0.6rem;
+      color: var(--accent);
+    }
+
+    .project-awards {
+      display: flex;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.1rem;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .project-link:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .coming-soon {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      min-height: 200px;
+      color: var(--border);
+    }
+
+    .coming-soon span {
+      font-family: 'Jost', sans-serif;
+      font-style: italic;
+      font-size: 1.1rem;
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 3rem 4rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer p {
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--ink); }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 0.5; }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      #hero, section, footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .hero-decoration { display: none; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      footer { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#hero" class="nav-logo">Nancy Liang</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-content">
+      <h1 class="hero-name">Nancy<br/><em>Liang</em></h1>
+      <p class="hero-tagline">
+        Product Manager interested in building things that matter.
+      </p>
+      <div class="hero-links">
+        <a href="#portfolio" class="btn">View Portfolio</a>
+        <a href="https://github.com/nliang16" target="_blank" class="btn btn-ghost">GitHub ↗</a>
+        <a href="https://www.linkedin.com/in/nancyliang16/" target="_blank" class="btn btn-ghost">LinkedIn ↗</a>
+      </div>
+    </div>
+    <div class="hero-decoration" aria-hidden="true">NL</div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-grid">
+      <div class="about-text">
+        <div class="section-label">About</div>
+        <h2 class="section-title">A little about me</h2>
+        <p>
+          Hi! I'm Nancy, a product manager and computer science master's student at the University of Pennsylvania's School of Engineering and Applied Science.
+        </p>
+        <p>
+          I'm passionate about AI and building projects that make life better for people.
+        </p>
+        <p>
+          I also care about creating community as President of CIT59x, the student body organization of my master's program.
+        </p>
+        <div class="skills-list">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">C++</span>
+          <span class="skill-tag">PyTorch</span>
+          <span class="skill-tag">SQL</span>
+          <span class="skill-tag">Spark</span>
+          <span class="skill-tag">Machine Learning</span>
+          <span class="skill-tag">Data Analysis</span>
+        </div>
+      </div>
+      <div class="about-sidebar">
+        <h3>Education</h3>
+        <p> Master of Computer Science and Information Technology <br/>(renamed Master of Applied Science in Computer Science)</p> <br/>University of Pennsylvania, SEAS</p>
+
+        <h3>Coursework</h3>
+        <ul>
+          <li>CIS 7000: Human Computer Interaction Foundations and Frontiers</li>
+          <li>CIS 5210: Artificial Intelligence</li>
+          <li>CIS 5450: Big Data Analytics</li>
+          <li>EAS 5470: Engineering Product Management</li>
+        </ul>
+
+        <h3>Interests</h3>
+        <ul>
+          <li>Artificial Intelligence</li>
+          <li>Human and Computer Interaction</li>
+          <li>Product Management</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section id="portfolio">
+    <div class="section-label">Work</div>
+    <h2 class="section-title">Portfolio</h2>
+    <p class="portfolio-intro">A selection of projects I've built and shipped.</p>
+    <div class="portfolio-grid">
+
+      <div class="project-card has-link has-bg-image" onclick="location.href='project-sofi.html'" style="background-image: url('https://i.imgur.com/fzkQokM.png')">
+        <div class="project-number">01</div>
+        <h3 class="project-title">Social Proof Module — SoFi</h3>
+        <p class="project-desc">Executed 0 to 1 creation of two dynamic display components on SoFi.com surfacing real-time metrics (e.g., loan issuances in the last 7 days, page views) to 1M+ monthly visitors, driving a 7% lift in conversion rates.</p>
+        <div class="project-awards">
+          <span class="project-award">7% Conversion Lift</span>
+          <span class="project-award">1M+ Monthly Visitors</span>
+          <span class="project-award">30% Faster Turnaround</span>
+        </div>
+        <div class="project-tags">
+          <span class="project-tag">Product Management</span>
+          <span class="project-tag">A/B Testing</span>
+          <span class="project-tag">Data Display</span>
+          <span class="project-tag">User Research</span>
+        </div>
+        <span class="project-link">View Project →</span>
+      </div>
+
+      <div class="project-card has-link has-bg-image" onclick="location.href='project-nara.html'" style="background-image: url('https://i.imgur.com/aX5g4rs.png')">
+        <div class="project-number">02</div>
+        <h3 class="project-title">Nara</h3>
+        <p class="project-desc">A Chrome extension designed to give users a gentle, joyful start to their day by combatting the feeling of being stuck with actionable to-do lists.</p>
+        <div class="project-awards">
+          <span class="project-award">Top 3 Overall — MCIT Hackathon 2025</span>
+          <span class="project-award">Most Artful Design</span>
+        </div>
+        <div class="project-tags">
+          <span class="project-tag">HTML</span>
+          <span class="project-tag">CSS</span>
+          <span class="project-tag">JavaScript</span>
+          <span class="project-tag">Chrome Extension</span>
+        </div>
+        <span class="project-link">View Project →</span>
+      </div>
+
+      <div class="project-card coming-soon">
+        <div class="project-number">03</div>
+        <span>Coming soon</span>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 Nancy Liang</p>
+    <div class="footer-links">
+      <a href="mailto:nanliang@seas.upenn.edu">Email</a>
+      <a href="https://github.com" target="_blank">GitHub</a>
+      <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+    </div>
+  </footer>
+
+</body>
+</html>

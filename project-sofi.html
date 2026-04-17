@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Social Proof Module — SoFi · Nancy Liang</title>
+  <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f0f2f5;
+      --ink: #1c2028;
+      --accent: #5b7fa6;
+      --muted: #7a8494;
+      --card: #e5e8ee;
+      --border: #c8cdd8;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 4rem;
+      background: rgba(240, 242, 245, 0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Jost', sans-serif;
+      font-size: 1.2rem;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      color: var(--ink);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--ink); }
+
+    .project-hero {
+      min-height: 55vh;
+      background-image: url('https://i.imgur.com/fzkQokM.png');
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      padding: 4rem;
+    }
+
+    .project-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.2) 0%,
+        rgba(255,255,255,0.75) 70%,
+        rgba(240,242,245,1) 100%
+      );
+    }
+
+    .project-hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      margin-bottom: 2rem;
+      transition: color 0.2s;
+    }
+
+    .back-link:hover { color: var(--ink); }
+
+    .project-eyebrow {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .project-hero-title {
+      font-family: 'Jost', sans-serif;
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      font-weight: 400;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+    }
+
+    .project-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .project-tag {
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid rgba(91,127,166,0.5);
+      padding: 0.2rem 0.6rem;
+    }
+
+    .project-award {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 0.25rem 0.65rem;
+    }
+
+    .project-award::before {
+      content: '✦';
+      font-size: 0.6rem;
+      color: var(--accent);
+    }
+
+    .content {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 4rem 4rem 7rem;
+    }
+
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      max-width: 60px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .content-section {
+      margin-bottom: 4rem;
+    }
+
+    .content-section h2 {
+      font-family: 'Jost', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      margin-bottom: 1rem;
+    }
+
+    .content-section p {
+      color: var(--muted);
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+
+    .content-section p:first-of-type {
+      color: var(--ink);
+      font-size: 1.05rem;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5px;
+      background: var(--border);
+      border: 1.5px solid var(--border);
+      margin: 2rem 0;
+    }
+
+    .stat {
+      background: var(--bg);
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .stat-value {
+      font-family: 'Jost', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 400;
+      color: var(--ink);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .placeholder-block {
+      background: var(--card);
+      border: 1px dashed var(--border);
+      border-radius: 2px;
+      padding: 3rem 2rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+      margin: 2rem 0;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 3rem 0;
+    }
+
+    footer {
+      padding: 3rem 4rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer p { color: var(--muted); font-size: 0.85rem; }
+
+    .footer-links { display: flex; gap: 2rem; }
+
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--ink); }
+
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .project-hero { padding: 2rem 1.5rem; }
+      .content { padding: 2.5rem 1.5rem 5rem; }
+      .stats-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index (4).html" class="nav-logo">Nancy Liang</a>
+    <ul class="nav-links">
+      <li><a href="index (4).html#about">About</a></li>
+      <li><a href="index (4).html#portfolio">Portfolio</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="project-hero">
+    <div class="project-hero-content">
+      <a href="index (4).html#portfolio" class="back-link">← Back to Portfolio</a>
+      <p class="project-eyebrow">Product Management · SoFi</p>
+      <h1 class="project-hero-title">Social Proof Module</h1>
+      <div class="project-meta">
+        <span class="project-award">7% Conversion Lift</span>
+        <span class="project-award">1M+ Monthly Visitors</span>
+        <span class="project-award">30% Faster Turnaround</span>
+        <span class="project-tag">Product Management</span>
+        <span class="project-tag">A/B Testing</span>
+        <span class="project-tag">Data Display</span>
+        <span class="project-tag">User Research</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <div class="stats-grid">
+      <div class="stat">
+        <div class="stat-value">7%</div>
+        <div class="stat-label">Conversion Lift</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">1M+</div>
+        <div class="stat-label">Monthly Visitors</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">30%</div>
+        <div class="stat-label">Faster Turnaround</div>
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+    <div class="content-section">
+      <div class="section-label">Overview</div>
+      <h2>The Problem</h2>
+      <p>During my Product Management internship at SoFi, I identified a gap in how the platform communicated trust to prospective members. SoFi's product pages lacked dynamic, real-time signals of peer activity, such as how many people had recently been approved for a loan or were actively viewing an investment product. SoFi's own internal research showed that increasing social trust correlated with a 20% lift in the likelihood of a member adopting their next paid product. I saw an opening to close that gap through a lightweight, scalable social proof component that could be deployed across multiple product lines and tested rigorously via A/B experimentation.</p>
+    </div>
+
+    <div class="content-section">
+      <div class="section-label">Process</div>
+      <h2>What I Did</h2>
+      <p>Executed 0 to 1 creation of social proof modules on SoFi.com, two dynamic data display components surfacing real-time metrics (e.g., new account opens, page views) to 1M+ monthly visitors.</p>
+      <p>Converted focus group insights into prioritized requirements, launching reusable self-service site editing tools adopted by the Marketing department, reducing update turnaround time by 30% and freeing engineering capacity for faster experimentation.</p>
+      <img src="https://i.imgur.com/5E837WT.png" alt="Social Proof Module" style="width:100%;border-radius:2px;margin:2rem 0;display:block;" />
+    </div>
+
+    <div class="content-section">
+      <div class="section-label">Impact</div>
+      <h2>Results</h2>
+      <p>Drove a 6.75% lift in Invest application start rates across 1M+ monthly visitors.</p>
+      <p>The Dynamic Social Proof Module shipped successfully and was well-received by the Marketing team, who deployed it across a backlog of additional use cases. Because we built the component to be self-serve, the marketing team can now reuse and extend it across product pages with zero additional engineering lift. What started as two targeted experiments became a scalable platform capability.</p>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>© 2026 Nancy Liang</p>
+    <div class="footer-links">
+      <a href="mailto:nanliang@seas.upenn.edu">Email</a>
+      <a href="https://github.com/nliang16" target="_blank">GitHub</a>
+      <a href="https://www.linkedin.com/in/nancyliang16/" target="_blank">LinkedIn</a>
+    </div>
+  </footer>
+
+</body>
+</html>

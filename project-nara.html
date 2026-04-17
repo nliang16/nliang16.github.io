@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nara · Nancy Liang</title>
+  <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f0f2f5;
+      --ink: #1c2028;
+      --accent: #5b7fa6;
+      --muted: #7a8494;
+      --card: #e5e8ee;
+      --border: #c8cdd8;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 4rem;
+      background: rgba(240, 242, 245, 0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Jost', sans-serif;
+      font-size: 1.2rem;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      color: var(--ink);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--ink); }
+
+    .project-hero {
+      min-height: 55vh;
+      background-image: url('https://i.imgur.com/aX5g4rs.png');
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      padding: 4rem;
+    }
+
+    .project-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.2) 0%,
+        rgba(255,255,255,0.75) 70%,
+        rgba(240,242,245,1) 100%
+      );
+    }
+
+    .project-hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      margin-bottom: 2rem;
+      transition: color 0.2s;
+    }
+
+    .back-link:hover { color: var(--ink); }
+
+    .project-eyebrow {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .project-hero-title {
+      font-family: 'Jost', sans-serif;
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      font-weight: 400;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+    }
+
+    .project-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .project-tag {
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid rgba(91,127,166,0.5);
+      padding: 0.2rem 0.6rem;
+    }
+
+    .project-award {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 0.25rem 0.65rem;
+    }
+
+    .project-award::before {
+      content: '✦';
+      font-size: 0.6rem;
+      color: var(--accent);
+    }
+
+    .content {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 4rem 4rem 7rem;
+    }
+
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      max-width: 60px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .content-section {
+      margin-bottom: 4rem;
+    }
+
+    .content-section h2 {
+      font-family: 'Jost', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      margin-bottom: 1rem;
+    }
+
+    .content-section p {
+      color: var(--muted);
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+
+    .content-section p:first-of-type {
+      color: var(--ink);
+      font-size: 1.05rem;
+    }
+
+    .placeholder-block {
+      background: var(--card);
+      border: 1px dashed var(--border);
+      border-radius: 2px;
+      padding: 3rem 2rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+      margin: 2rem 0;
+    }
+
+    .external-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.85rem;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.1rem;
+      transition: border-color 0.2s, color 0.2s;
+      margin-top: 0.5rem;
+    }
+
+    .external-link:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 3rem 0;
+    }
+
+    footer {
+      padding: 3rem 4rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer p { color: var(--muted); font-size: 0.85rem; }
+
+    .footer-links { display: flex; gap: 2rem; }
+
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--ink); }
+
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .project-hero { padding: 2rem 1.5rem; }
+      .content { padding: 2.5rem 1.5rem 5rem; }
+      footer { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index (4).html" class="nav-logo">Nancy Liang</a>
+    <ul class="nav-links">
+      <li><a href="index (4).html#about">About</a></li>
+      <li><a href="index (4).html#portfolio">Portfolio</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="project-hero">
+    <div class="project-hero-content">
+      <a href="index (4).html#portfolio" class="back-link">← Back to Portfolio</a>
+      <p class="project-eyebrow">Chrome Extension · MCIT Hackathon 2025</p>
+      <h1 class="project-hero-title">Nara</h1>
+      <div class="project-meta">
+        <span class="project-award">Top 3 Overall — MCIT Hackathon 2025</span>
+        <span class="project-award">Most Artful Design</span>
+        <span class="project-tag">HTML</span>
+        <span class="project-tag">CSS</span>
+        <span class="project-tag">JavaScript</span>
+        <span class="project-tag">Chrome Extension</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <hr class="divider" />
+
+    <div class="content-section">
+      <div class="section-label">Overview</div>
+      <h2>The Problem</h2>
+      <p>For people with ADHD and other mental health challenges, starting is often the hardest part. It's not laziness or lack of motivation, it's a neurological barrier that makes even simple tasks feel impossibly large. Opening a new tab can become a moment of paralysis: the blank page, the mental weight of everything that needs to get done, and the all-too-familiar spiral into doom scrolling or bedrotting instead. When our team sat down for the MCIT Hackathon 2025, which was themed around Wellness, we kept coming back to this gap.</p>
+      <img src="https://i.imgur.com/HEzHGQp.jpeg" alt="Nara overview" style="width:100%;border-radius:2px;display:block;margin:2rem 0;" />
+    </div>
+
+    <div class="content-section">
+      <div class="section-label">Process</div>
+      <h2>What I Built</h2>
+      <p>A Chrome extension designed to give users a gentle, joyful start to their day.</p>
+      <p>Most productivity tools are built for people who are already "unstuck." They assume you can easily create a list of tasks and get started on them. We wanted to design for the moment before that, the moment where someone needs a gentle on-ramp back into their day. To solve this problem, we created Nara. Rather than presenting an overwhelming to-do list, Nara helps you get a head start by suggesting tasks. You open a new tab, pick a focus area to care for that feels manageable (i.e. yourself, your home, your pet) and get five small, achievable tasks tailored to that category. We help users get out of a rut, build a little momentum, and feel good about it.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:2rem 0;">
+        <img src="https://i.imgur.com/pRfmfLv.jpeg" alt="Nara screenshot 1" style="width:100%;border-radius:2px;display:block;" />
+        <img src="https://i.imgur.com/901SCeS.jpeg" alt="Nara screenshot 2" style="width:100%;border-radius:2px;display:block;" />
+      </div>
+
+      <p>We also built a hidden custom list mode, accessible by hovering over the temple doors on the landing page. From there, users can write their own tasks and reorder them freely.</p>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:2rem;">
+        <img src="https://i.imgur.com/7iSjiKw.png" alt="Nara screenshot 3" style="width:100%;border-radius:2px;display:block;" />
+        <img src="https://i.imgur.com/u1lseMl.png" alt="Nara screenshot 4" style="width:100%;border-radius:2px;display:block;" />
+      </div>
+    </div>
+
+    <div class="content-section">
+      <div class="section-label">Recognition</div>
+      <h2>Awards</h2>
+      <p>Top 3 Overall and Most Artful Design at the MCIT Hackathon 2025.</p>
+      <a href="https://devpost.com/software/nara-dkozgj" target="_blank" class="external-link">View on Devpost ↗</a>
+      <a href="https://chromewebstore.google.com/detail/nara/cfpmbcijfhogincocklogldbkgklkene?pli=1" target="_blank" class="external-link" style="margin-left:1.5rem;">Download on Chrome Web Store ↗</a>
+    </div>
+
+
+  </div>
+
+  <footer>
+    <p>© 2026 Nancy Liang</p>
+    <div class="footer-links">
+      <a href="mailto:nanliang@seas.upenn.edu">Email</a>
+      <a href="https://github.com/nliang16" target="_blank">GitHub</a>
+      <a href="https://www.linkedin.com/in/nancyliang16/" target="_blank">LinkedIn</a>
+    </div>
+  </footer>
+
+</body>
+</html>
