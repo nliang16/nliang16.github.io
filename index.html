@@ -37,7 +37,7 @@
       justify-content: space-between;
       align-items: center;
       padding: 1.25rem 4rem;
-      background: rgba(245, 240, 232, 0.85);
+      background: rgba(240, 242, 245, 0.85);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--border);
     }
@@ -310,15 +310,15 @@
       inset: 0;
       background: linear-gradient(
         to bottom,
-        rgba(26, 22, 18, 0.45) 0%,
-        rgba(26, 22, 18, 0.75) 60%,
-        rgba(26, 22, 18, 0.92) 100%
+        rgba(255, 255, 255, 0.45) 0%,
+        rgba(255, 255, 255, 0.72) 60%,
+        rgba(255, 255, 255, 0.88) 100%
       );
       transition: opacity 0.3s;
     }
 
     .project-card.has-bg-image:hover::before {
-      opacity: 0.85;
+      opacity: 1;
     }
 
     .project-card.has-bg-image > * {
@@ -327,39 +327,39 @@
     }
 
     .project-card.has-bg-image .project-number {
-      color: rgba(245, 240, 232, 0.25);
+      color: rgba(28, 32, 40, 0.2);
     }
 
     .project-card.has-bg-image .project-title {
-      color: #f0f2f5;
+      color: var(--ink);
     }
 
     .project-card.has-bg-image .project-desc {
-      color: rgba(240, 242, 245, 0.75);
+      color: var(--muted);
     }
 
     .project-card.has-bg-image .project-award {
-      color: rgba(240, 242, 245, 0.7);
-      border-color: rgba(240, 242, 245, 0.25);
+      color: var(--muted);
+      border-color: rgba(28, 32, 40, 0.2);
     }
 
     .project-card.has-bg-image .project-award::before {
-      color: #a8c4e0;
+      color: var(--accent);
     }
 
     .project-card.has-bg-image .project-tag {
-      color: #a8c4e0;
-      border-color: rgba(168, 196, 224, 0.5);
+      color: var(--accent);
+      border-color: rgba(91, 127, 166, 0.5);
     }
 
     .project-card.has-bg-image .project-link {
-      color: #f0f2f5;
-      border-color: rgba(240, 242, 245, 0.35);
+      color: var(--ink);
+      border-color: rgba(28, 32, 40, 0.25);
     }
 
     .project-card.has-bg-image .project-link:hover {
-      color: #a8c4e0;
-      border-color: #a8c4e0;
+      color: var(--accent);
+      border-color: var(--accent);
     }
 
     .project-number {
@@ -516,17 +516,16 @@
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#portfolio">Portfolio</a></li>
-      <li><a href="mailto:nanliang@seas.upenn.edu">Contact</a></li>
+      <li><a href="contact.html">Contact</a></li>
     </ul>
   </nav>
 
   <!-- HERO -->
   <section id="hero">
     <div class="hero-content">
-      <p class="hero-eyebrow">Computer Science · University of Pennsylvania</p>
       <h1 class="hero-name">Nancy<br/><em>Liang</em></h1>
       <p class="hero-tagline">
-        CS student interested in building things that matter.
+        Product Manager interested in building things that matter.
       </p>
       <div class="hero-links">
         <a href="#portfolio" class="btn">View Portfolio</a>
@@ -544,13 +543,13 @@
         <div class="section-label">About</div>
         <h2 class="section-title">A little about me</h2>
         <p>
-          Hi! I'm Nancy, a computer science master's student at the University of Pennsylvania's School of Engineering and Applied Science.
+          Hi! I'm Nancy, a product manager and computer science master's student at the University of Pennsylvania's School of Engineering and Applied Science.
         </p>
         <p>
-          I'm passionate about AI and building projects that solve real problems.
+          I'm passionate about AI and building projects that make life better for people.
         </p>
         <p>
-          Currently exploring product management alongside my technical studies, and always looking for opportunities to build and collaborate.
+          I also care about creating community as President of CIT59x, the student body organization of my master's program.
         </p>
         <div class="skills-list">
           <span class="skill-tag">Python</span>
@@ -564,20 +563,21 @@
       </div>
       <div class="about-sidebar">
         <h3>Education</h3>
-        <p> Master of Computer Science and Information Technology<br/>University of Pennsylvania, SEAS</p>
+        <p> Master of Computer Science and Information Technology <br/>(renamed Master of Applied Science in Computer Science)</p> <br/>University of Pennsylvania, SEAS</p>
 
-        <h3>Current Coursework</h3>
+        <h3>Coursework</h3>
         <ul>
-          <li>CIS 5210 — Artificial Intelligence</li>
-          <li>CIS 5450 — Big Data Analytics</li>
-          <li>EAS 5470 — Product Management</li>
+          <li>CIS 7000: Human Computer Interaction Foundations and Frontiers</li>
+          <li>CIS 5210: Artificial Intelligence</li>
+          <li>CIS 5450: Big Data Analytics</li>
+          <li>EAS 5470: Engineering Product Management</li>
         </ul>
 
         <h3>Interests</h3>
         <ul>
           <li>Artificial Intelligence</li>
           <li>Human and Computer Interaction</li>
-          <li>Product Strategy</li>
+          <li>Product Management</li>
         </ul>
       </div>
     </div>
@@ -590,10 +590,28 @@
     <p class="portfolio-intro">A selection of projects I've built and shipped.</p>
     <div class="portfolio-grid">
 
-      <div class="project-card has-link has-bg-image" style="background-image: url('https://i.imgur.com/aX5g4rs.png')">
+      <div class="project-card has-link has-bg-image" onclick="location.href='project-sofi.html'" style="background-image: url('https://i.imgur.com/fzkQokM.png')">
         <div class="project-number">01</div>
+        <h3 class="project-title">Social Proof Module — SoFi</h3>
+        <p class="project-desc">Executed 0 to 1 creation of two dynamic display components on SoFi.com surfacing real-time metrics (e.g., loan issuances in the last 7 days, page views) to 1M+ monthly visitors, driving a 7% lift in conversion rates.</p>
+        <div class="project-awards">
+          <span class="project-award">7% Conversion Lift</span>
+          <span class="project-award">1M+ Monthly Visitors</span>
+          <span class="project-award">30% Faster Turnaround</span>
+        </div>
+        <div class="project-tags">
+          <span class="project-tag">Product Management</span>
+          <span class="project-tag">A/B Testing</span>
+          <span class="project-tag">Data Display</span>
+          <span class="project-tag">User Research</span>
+        </div>
+        <span class="project-link">View Project →</span>
+      </div>
+
+      <div class="project-card has-link has-bg-image" onclick="location.href='project-nara.html'" style="background-image: url('https://i.imgur.com/aX5g4rs.png')">
+        <div class="project-number">02</div>
         <h3 class="project-title">Nara</h3>
-        <p class="project-desc">A Chrome extension designed to give users a gentle, joyful start to their day — combating doom-scrolling with beautiful category-based to-do lists and a small reward system for completing tasks.</p>
+        <p class="project-desc">A Chrome extension designed to give users a gentle, joyful start to their day by combatting the feeling of being stuck with actionable to-do lists.</p>
         <div class="project-awards">
           <span class="project-award">Top 3 Overall — MCIT Hackathon 2025</span>
           <span class="project-award">Most Artful Design</span>
@@ -604,13 +622,9 @@
           <span class="project-tag">JavaScript</span>
           <span class="project-tag">Chrome Extension</span>
         </div>
-        <a href="https://devpost.com/software/nara-dkozgj" target="_blank" class="project-link">View on Devpost ↗</a>
+        <span class="project-link">View Project →</span>
       </div>
 
-      <div class="project-card coming-soon">
-        <div class="project-number">02</div>
-        <span>Coming soon</span>
-      </div>
       <div class="project-card coming-soon">
         <div class="project-number">03</div>
         <span>Coming soon</span>
