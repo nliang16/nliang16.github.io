@@ -99,7 +99,7 @@
 
     .hero-name em {
       font-style: italic;
-      color: var(--muted);
+      color: #AED9E0;
     }
 
     .hero-tagline {
@@ -149,15 +149,23 @@
       right: 4rem;
       top: 50%;
       transform: translateY(-50%);
-      font-family: 'Jost', sans-serif;
-      font-size: 20vw;
-      font-style: italic;
-      color: transparent;
-      -webkit-text-stroke: 1px var(--border);
+      width: 22vw;
+      max-width: 320px;
+      aspect-ratio: 1;
+      background: #AED9E0;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       pointer-events: none;
       user-select: none;
-      opacity: 0.5;
-      animation: fadeIn 1.2s ease 0.3s both;
+    }
+
+    .hero-decoration img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
     }
 
     /* SECTIONS */
@@ -533,7 +541,9 @@
         <a href="https://www.linkedin.com/in/nancyliang16/" target="_blank" class="btn btn-ghost">LinkedIn ↗</a>
       </div>
     </div>
-    <div class="hero-decoration" aria-hidden="true">NL</div>
+    <div class="hero-decoration">
+      <img src="https://i.imgur.com/qrbcfdl.png" alt="" aria-hidden="true" />
+    </div>
   </section>
 
   <!-- ABOUT -->
@@ -549,7 +559,10 @@
           I'm passionate about AI and building projects that make life better for people.
         </p>
         <p>
-          I also care about creating community as President of CIT59x, the student body organization of my master's program.
+          I also care about creating community as President of CIT59x, the student body organization of my master's program. I oversee the organizing of all social events, career programming, student advocacy, alumni relations, trips, and the annual Hackathon for my program. You can check out some of our going-ons <a href="https://www.instagram.com/cit59x/" target="_blank" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(91,127,166,0.4); transition: border-color 0.2s;">here</a>.
+        </p>
+        <p>
+          In my free time, I enjoy <a href="https://www.instagram.com/studio.lishu" target="_blank" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(91,127,166,0.4); transition: border-color 0.2s;">creating pottery</a> and running road races.
         </p>
         <div class="skills-list">
           <span class="skill-tag">Python</span>
@@ -625,9 +638,17 @@
         <span class="project-link">View Project →</span>
       </div>
 
-      <div class="project-card coming-soon">
+      <div class="project-card has-link has-bg-image" onclick="location.href='project-lingolink.html'" style="background-image: url('https://i.imgur.com/NKimyC0.png')">
         <div class="project-number">03</div>
-        <span>Coming soon</span>
+        <h3 class="project-title">LingoLink</h3>
+        <p class="project-desc">A browser-based strategy game that tests your knowledge of world geography and linguistics. Starting from a randomly assigned country, players chain connections between countries through shared languages, balancing risk and reward to maximize their score.</p>
+        <div class="project-tags">
+          <span class="project-tag">Game</span>
+          <span class="project-tag">Next.js</span>
+          <span class="project-tag">TypeScript</span>
+          <span class="project-tag">Java</span>
+        </div>
+        <span class="project-link">View Project →</span>
       </div>
     </div>
   </section>
