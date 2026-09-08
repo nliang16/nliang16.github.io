@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nara · Nancy Liang</title>
-  <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <title>Pottery · Nancy Liang</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
   <script>
     (function () {
       try {
@@ -22,7 +22,7 @@
       --ink: #1c2028;
       --accent: #5b7fa6;
       --muted: #7a8494;
-      --card: #e5e8ee;
+      --card: #eef0f4;
       --border: #c8cdd8;
       --nav-bg: rgba(240, 242, 245, 0.85);
     }
@@ -121,7 +121,7 @@
     }
 
     .nav-logo {
-      font-family: 'Jost', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 1.2rem;
       letter-spacing: 0.05em;
       text-decoration: none;
@@ -146,31 +146,15 @@
     .nav-links a:hover { color: var(--ink); }
 
     .project-hero {
-      min-height: 55vh;
-      background-image: url('https://i.imgur.com/aX5g4rs.png');
-      background-size: cover;
-      background-position: center;
-      position: relative;
+      min-height: 40vh;
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
       display: flex;
       align-items: flex-end;
       padding: 4rem;
     }
 
-    .project-hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        to bottom,
-        rgba(255,255,255,0.2) 0%,
-        rgba(255,255,255,0.75) 70%,
-        rgba(240,242,245,1) 100%
-      );
-    }
-
     .project-hero-content {
-      position: relative;
-      z-index: 1;
       max-width: 800px;
     }
 
@@ -198,44 +182,11 @@
     }
 
     .project-hero-title {
-      font-family: 'Jost', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: clamp(2.2rem, 5vw, 4rem);
       font-weight: 400;
       line-height: 1.1;
       margin-bottom: 1.5rem;
-    }
-
-    .project-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-
-    .project-tag {
-      font-size: 0.7rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--accent);
-      border: 1px solid rgba(91,127,166,0.5);
-      padding: 0.2rem 0.6rem;
-    }
-
-    .project-award {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      font-size: 0.72rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--muted);
-      border: 1px solid var(--border);
-      padding: 0.25rem 0.65rem;
-    }
-
-    .project-award::before {
-      content: '✦';
-      font-size: 0.6rem;
-      color: var(--accent);
     }
 
     .content {
@@ -268,7 +219,7 @@
     }
 
     .content-section h2 {
-      font-family: 'Jost', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 1.5rem;
       font-weight: 400;
       margin-bottom: 1rem;
@@ -283,6 +234,101 @@
     .content-section p:first-of-type {
       color: var(--ink);
       font-size: 1.05rem;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+
+    .gallery-grid img {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      border-radius: 2px;
+      display: block;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    .gallery-grid img:hover {
+      opacity: 0.85;
+    }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(17, 19, 24, 0.94);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      touch-action: pan-y;
+    }
+
+    .lightbox[hidden] { display: none; }
+
+    .lightbox-img {
+      max-width: 88vw;
+      max-height: 88vh;
+      object-fit: contain;
+      border-radius: 2px;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    .lightbox-close,
+    .lightbox-prev,
+    .lightbox-next {
+      position: absolute;
+      background: transparent;
+      border: none;
+      color: #f0f2f5;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      cursor: pointer;
+      transition: opacity 0.2s;
+      opacity: 0.75;
+    }
+
+    .lightbox-close:hover,
+    .lightbox-prev:hover,
+    .lightbox-next:hover {
+      opacity: 1;
+    }
+
+    .lightbox-close {
+      top: 1.5rem;
+      right: 2rem;
+      font-size: 2rem;
+      line-height: 1;
+    }
+
+    .lightbox-prev,
+    .lightbox-next {
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 2.5rem;
+      padding: 0.5rem 1rem;
+    }
+
+    .lightbox-prev { left: 0.5rem; }
+    .lightbox-next { right: 0.5rem; }
+
+    .lightbox-counter {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #f0f2f5;
+      opacity: 0.75;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+    }
+
+    @media (max-width: 768px) {
+      .lightbox-prev, .lightbox-next { font-size: 1.8rem; padding: 0.4rem 0.6rem; }
     }
 
     .placeholder-block {
@@ -348,6 +394,7 @@
       nav { padding: 1rem 1.5rem; }
       .project-hero { padding: 2rem 1.5rem; }
       .content { padding: 2.5rem 1.5rem 5rem; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
       footer { flex-direction: column; gap: 1rem; text-align: center; }
     }
   </style>
@@ -385,59 +432,133 @@
 
   <div class="project-hero">
     <div class="project-hero-content">
-      <a href="index.html#portfolio" class="back-link">← Back to Portfolio</a>
-      <p class="project-eyebrow">Chrome Extension · MCIT Hackathon 2025</p>
-      <h1 class="project-hero-title">Nara</h1>
-      <div class="project-meta">
-        <span class="project-award">Top 3 Overall — MCIT Hackathon 2025</span>
-        <span class="project-award">Most Artful Design</span>
-        <span class="project-tag">HTML</span>
-        <span class="project-tag">CSS</span>
-        <span class="project-tag">JavaScript</span>
-        <span class="project-tag">Chrome Extension</span>
-      </div>
+      <a href="index.html#about" class="back-link">← Back to About</a>
+      <p class="project-eyebrow">Hobby · Ceramics</p>
+      <h1 class="project-hero-title">Pottery</h1>
     </div>
   </div>
 
   <div class="content">
 
-    <hr class="divider" />
-
     <div class="content-section">
       <div class="section-label">Overview</div>
-      <h2>The Problem</h2>
-      <p>For people with ADHD and other mental health challenges, starting is often the hardest part. It's not laziness or lack of motivation, it's a neurological barrier that makes even simple tasks feel impossibly large. Opening a new tab can become a moment of paralysis: the blank page, the mental weight of everything that needs to get done, and the all-too-familiar spiral into doom scrolling or bedrotting instead. When our team sat down for the MCIT Hackathon 2025, which was themed around Wellness, we kept coming back to this gap.</p>
-      <img src="https://i.imgur.com/HEzHGQp.jpeg" alt="Nara overview" style="width:100%;border-radius:2px;display:block;margin:2rem 0;" />
+      <p>Outside of work, I spend a lot of time at the pottery wheel. I love the feeling of working with my hands and creating tangible, 3D objects after a week of working on digital products.</p>
+      <p>Here are some of the things I have made from nothing more than a bag of clay.</p>
     </div>
 
     <div class="content-section">
-      <div class="section-label">Process</div>
-      <h2>What I Built</h2>
-      <p>A Chrome extension designed to give users a gentle, joyful start to their day.</p>
-      <p>Most productivity tools are built for people who are already "unstuck." They assume you can easily create a list of tasks and get started on them. We wanted to design for the moment before that, the moment where someone needs a gentle on-ramp back into their day. To solve this problem, we created Nara. Rather than presenting an overwhelming to-do list, Nara helps you get a head start by suggesting tasks. You open a new tab, pick a focus area to care for that feels manageable (i.e. yourself, your home, your pet) and get five small, achievable tasks tailored to that category. We help users get out of a rut, build a little momentum, and feel good about it.</p>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:2rem 0;">
-        <img src="https://i.imgur.com/pRfmfLv.jpeg" alt="Nara screenshot 1" style="width:100%;border-radius:2px;display:block;" />
-        <img src="https://i.imgur.com/901SCeS.jpeg" alt="Nara screenshot 2" style="width:100%;border-radius:2px;display:block;" />
-      </div>
-
-      <p>We also built a hidden custom list mode, accessible by hovering over the temple doors on the landing page. From there, users can write their own tasks and reorder them freely.</p>
-
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:2rem;">
-        <img src="https://i.imgur.com/7iSjiKw.png" alt="Nara screenshot 3" style="width:100%;border-radius:2px;display:block;" />
-        <img src="https://i.imgur.com/u1lseMl.png" alt="Nara screenshot 4" style="width:100%;border-radius:2px;display:block;" />
+      <div class="section-label">Gallery</div>
+      <h2>Things I've Made</h2>
+      <div class="gallery-grid" id="gallery-grid">
+        <img src="pottery%20pictures/pottery_pieces/IMG_1039.jpeg" alt="Pottery piece" />
+        <img src="pottery%20pictures/pottery_pieces/IMG_1157.jpeg" alt="Pottery piece" />
+        <img src="pottery%20pictures/pottery_pieces/IMG_1160.jpeg" alt="Pottery piece" />
+        <img src="pottery%20pictures/pottery_pieces/IMG_1420.jpeg" alt="Pottery piece" />
+        <img src="pottery%20pictures/pottery_pieces/IMG_1434.jpeg" alt="Pottery piece" />
+        <img src="pottery%20pictures/pottery_pieces/IMG_1799.jpeg" alt="Pottery piece" />
+        <img src="pottery%20pictures/pottery_pieces/IMG_1802.jpeg" alt="Pottery piece" />
+        <img src="pottery%20pictures/pottery_pieces/IMG_1805.jpeg" alt="Pottery piece" />
+        <img src="pottery%20pictures/pottery_pieces/IMG_1813.jpeg" alt="Pottery piece" />
+        <img src="pottery%20pictures/pottery_pieces/IMG_1820.jpeg" alt="Pottery piece" />
+        <img src="pottery%20pictures/pottery_pieces/IMG_2277.jpeg" alt="Pottery piece" />
+        <img src="pottery%20pictures/pottery_pieces/ottoplate.jpeg" alt="Pottery piece" />
+        <img src="pottery%20pictures/pottery_pieces/teapot.PNG" alt="Pottery piece" />
+        <img src="pottery%20pictures/pottery_pieces/IMG_1208.jpeg" alt="Pottery piece" />
+        <img src="pottery%20pictures/pottery_pieces/IMG_2293.jpeg" alt="Pottery piece" />
       </div>
     </div>
 
     <div class="content-section">
-      <div class="section-label">Recognition</div>
-      <h2>Awards</h2>
-      <p>Top 3 Overall and Most Artful Design at the MCIT Hackathon 2025.</p>
-      <a href="https://devpost.com/software/nara-dkozgj" target="_blank" class="external-link">View on Devpost ↗</a>
-      <a href="https://chromewebstore.google.com/detail/nara/cfpmbcijfhogincocklogldbkgklkene?pli=1" target="_blank" class="external-link" style="margin-left:1.5rem;">Download on Chrome Web Store ↗</a>
+      <div class="section-label">Wood Firing</div>
+      <h2>Historic Yellow Springs</h2>
+      <p>In July 2026, I had the opportunity to experience a wood firing at Historic Yellow Springs, Pennsylvania. Here are some photos of that experience.</p>
+      <div class="gallery-grid" id="woodfiring-grid">
+        <img src="pottery%20pictures/woodfiring/Screenshot%202026-09-08%20at%2012.42.25%E2%80%AFPM.png" alt="Wood firing at Historic Yellow Springs" />
+        <img src="pottery%20pictures/woodfiring/IMG_1442.jpeg" alt="Wood firing at Historic Yellow Springs" />
+        <img src="pottery%20pictures/woodfiring/IMG_1499.jpeg" alt="Wood firing at Historic Yellow Springs" />
+        <img src="pottery%20pictures/woodfiring/IMG_1513.jpeg" alt="Wood firing at Historic Yellow Springs" />
+        <img src="pottery%20pictures/woodfiring/IMG_1539.JPG" alt="Wood firing at Historic Yellow Springs" />
+        <img src="pottery%20pictures/woodfiring/IMG_6601.jpeg" alt="Wood firing at Historic Yellow Springs" />
+        <img src="pottery%20pictures/woodfiring/IMG_6609.jpeg" alt="Wood firing at Historic Yellow Springs" />
+        <img src="pottery%20pictures/woodfiring/IMG_9625.jpeg" alt="Wood firing at Historic Yellow Springs" />
+        <img src="pottery%20pictures/woodfiring/IMG_9628.jpeg" alt="Wood firing at Historic Yellow Springs" />
+        <img src="pottery%20pictures/woodfiring/IMG_1794.jpeg" alt="Finished pot from the Historic Yellow Springs wood firing" />
+        <img src="pottery%20pictures/woodfiring/IMG_1802.jpeg" alt="Finished pot from the Historic Yellow Springs wood firing" />
+        <img src="pottery%20pictures/woodfiring/IMG_1809.jpeg" alt="Finished pot from the Historic Yellow Springs wood firing" />
+        <img src="pottery%20pictures/woodfiring/IMG_1838.jpeg" alt="Finished pot from the Historic Yellow Springs wood firing" />
+      </div>
     </div>
-
 
   </div>
+
+  <div class="lightbox" id="lightbox" hidden>
+    <button class="lightbox-close" id="lightbox-close" aria-label="Close">&times;</button>
+    <button class="lightbox-prev" id="lightbox-prev" aria-label="Previous">&#8249;</button>
+    <img class="lightbox-img" id="lightbox-img" src="" alt="Pottery piece, expanded" />
+    <button class="lightbox-next" id="lightbox-next" aria-label="Next">&#8250;</button>
+    <div class="lightbox-counter" id="lightbox-counter"></div>
+  </div>
+
+  <script>
+    (function () {
+      const galleryImgs = Array.from(document.querySelectorAll('.gallery-grid img'));
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightbox-img');
+      const counter = document.getElementById('lightbox-counter');
+      let current = 0;
+
+      function show(index) {
+        current = (index + galleryImgs.length) % galleryImgs.length;
+        lightboxImg.src = galleryImgs[current].src;
+        lightboxImg.alt = galleryImgs[current].alt;
+        counter.textContent = (current + 1) + ' / ' + galleryImgs.length;
+      }
+
+      function open(index) {
+        show(index);
+        lightbox.hidden = false;
+      }
+
+      function close() {
+        lightbox.hidden = true;
+        lightboxImg.src = '';
+      }
+
+      galleryImgs.forEach((img, i) => {
+        img.addEventListener('click', () => open(i));
+      });
+
+      document.getElementById('lightbox-close').addEventListener('click', close);
+      document.getElementById('lightbox-prev').addEventListener('click', () => show(current - 1));
+      document.getElementById('lightbox-next').addEventListener('click', () => show(current + 1));
+
+      lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) close();
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (lightbox.hidden) return;
+        if (e.key === 'Escape') close();
+        if (e.key === 'ArrowLeft') show(current - 1);
+        if (e.key === 'ArrowRight') show(current + 1);
+      });
+
+      let touchStartX = null;
+      lightbox.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].clientX;
+      }, { passive: true });
+
+      lightbox.addEventListener('touchend', (e) => {
+        if (touchStartX === null) return;
+        const deltaX = e.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(deltaX) > 40) {
+          if (deltaX < 0) show(current + 1);
+          else show(current - 1);
+        }
+        touchStartX = null;
+      }, { passive: true });
+    })();
+  </script>
 
   <footer>
     <p>© 2026 Nancy Liang</p>

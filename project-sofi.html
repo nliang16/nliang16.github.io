@@ -5,6 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Social Proof Module — SoFi · Nancy Liang</title>
   <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <script>
+    (function () {
+      try {
+        if (localStorage.getItem('theme') === 'dark') {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      } catch (e) {}
+    })();
+  </script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -15,6 +24,17 @@
       --muted: #7a8494;
       --card: #e5e8ee;
       --border: #c8cdd8;
+      --nav-bg: rgba(240, 242, 245, 0.85);
+    }
+
+    :root[data-theme="dark"] {
+      --bg: #14161b;
+      --ink: #eef0f4;
+      --accent: #7fa3c9;
+      --muted: #9aa3b4;
+      --card: #1c1f26;
+      --border: #33373f;
+      --nav-bg: rgba(20, 22, 27, 0.85);
     }
 
     html { scroll-behavior: smooth; }
@@ -26,6 +46,7 @@
       font-weight: 300;
       line-height: 1.7;
       overflow-x: hidden;
+      transition: background 0.2s, color 0.2s;
     }
 
     nav {
@@ -36,9 +57,67 @@
       justify-content: space-between;
       align-items: center;
       padding: 1.25rem 4rem;
-      background: rgba(240, 242, 245, 0.85);
+      background: var(--nav-bg);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--border);
+      transition: background 0.2s;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+    }
+
+    .theme-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2rem;
+      height: 2rem;
+      padding: 0;
+      border: none;
+      background: transparent;
+      color: var(--ink);
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .theme-toggle:hover {
+      transform: scale(1.08);
+    }
+
+    .theme-toggle svg {
+      width: 1.35rem;
+      height: 1.35rem;
+    }
+
+    .theme-toggle-circle {
+      transform-origin: center;
+      transition: transform 0.4s ease;
+    }
+
+    .theme-toggle-clip {
+      transition: d 0.4s ease;
+    }
+
+    .theme-toggle-ray {
+      transform-origin: center;
+      transition: transform 0.4s ease;
+      transition-delay: 60ms;
+    }
+
+    html[data-theme="dark"] .theme-toggle-circle {
+      transform: scale(1.7);
+    }
+
+    html[data-theme="dark"] .theme-toggle-clip {
+      d: path("M0 2h13a1 1 0 0010 10v14H0Z");
+    }
+
+    html[data-theme="dark"] .theme-toggle-ray {
+      transform: rotate(45deg) scale(0);
+      transition-delay: 0s;
     }
 
     .nav-logo {
@@ -289,11 +368,31 @@
 
   <nav>
     <a href="index.html" class="nav-logo">Nancy Liang</a>
-    <ul class="nav-links">
-      <li><a href="index.html#about">About</a></li>
-      <li><a href="index.html#portfolio">Portfolio</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#portfolio">Portfolio</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <clipPath id="theme-toggle-cutout">
+            <path class="theme-toggle-clip" d="M0 0h25a1 1 0 0010 10v14H0Z" />
+          </clipPath>
+          <g stroke="currentColor" stroke-linecap="round">
+            <circle class="theme-toggle-circle" cx="12" cy="12" r="5" fill="currentColor" clip-path="url(#theme-toggle-cutout)" />
+            <path class="theme-toggle-ray" fill="none" stroke-linejoin="round" stroke-miterlimit="0" stroke-width="2" d="M12 1.4v2.4" />
+            <path class="theme-toggle-ray" fill="none" stroke-linejoin="round" stroke-miterlimit="0" stroke-width="2" d="m20.3 3.7-2.5 2.5" />
+            <path class="theme-toggle-ray" fill="none" stroke-linejoin="round" stroke-miterlimit="0" stroke-width="2" d="M22.6 12h-2.4" />
+            <path class="theme-toggle-ray" fill="none" stroke-linejoin="round" stroke-miterlimit="0" stroke-width="2" d="M12 22.6v-2.4" />
+            <path class="theme-toggle-ray" fill="none" stroke-linejoin="round" stroke-miterlimit="0" stroke-width="2" d="M1.4 12h2.4" />
+            <path class="theme-toggle-ray" fill="none" stroke-linejoin="round" stroke-miterlimit="0" stroke-width="2" d="m20.3 20.3-2.5-2.5" />
+            <path class="theme-toggle-ray" fill="none" stroke-linejoin="round" stroke-miterlimit="0" stroke-width="2" d="m3.7 20.3 2.5-2.5" />
+            <path class="theme-toggle-ray" fill="none" stroke-linejoin="round" stroke-miterlimit="0" stroke-width="2" d="m3.7 3.7 2.5 2.5" />
+          </g>
+        </svg>
+      </button>
+    </div>
   </nav>
 
   <div class="project-hero">
@@ -358,11 +457,28 @@
   <footer>
     <p>© 2026 Nancy Liang</p>
     <div class="footer-links">
-      <a href="mailto:nanliang@seas.upenn.edu">Email</a>
+      <a href="mailto:nancy.fs.liang@gmail.com">Email</a>
       <a href="https://github.com/nliang16" target="_blank">GitHub</a>
       <a href="https://www.linkedin.com/in/nancyliang16/" target="_blank">LinkedIn</a>
     </div>
   </footer>
+
+  <script>
+    (function () {
+      const toggle = document.getElementById('theme-toggle');
+      function applyTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+      }
+      applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light');
+      if (toggle) {
+        toggle.addEventListener('click', () => {
+          const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+          try { localStorage.setItem('theme', next); } catch (e) {}
+          applyTheme(next);
+        });
+      }
+    })();
+  </script>
 
 </body>
 </html>

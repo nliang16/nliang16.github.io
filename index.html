@@ -4,7 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nancy Liang</title>
-  <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <script>
+    (function () {
+      try {
+        if (localStorage.getItem('theme') === 'dark') {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      } catch (e) {}
+    })();
+  </script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -13,8 +22,19 @@
       --ink: #1c2028;
       --accent: #5b7fa6;
       --muted: #7a8494;
-      --card: #e5e8ee;
+      --card: #eef0f4;
       --border: #c8cdd8;
+      --nav-bg: rgba(240, 242, 245, 0.85);
+    }
+
+    :root[data-theme="dark"] {
+      --bg: #14161b;
+      --ink: #eef0f4;
+      --accent: #7fa3c9;
+      --muted: #9aa3b4;
+      --card: #1c1f26;
+      --border: #33373f;
+      --nav-bg: rgba(20, 22, 27, 0.85);
     }
 
     html { scroll-behavior: smooth; }
@@ -26,6 +46,7 @@
       font-weight: 300;
       line-height: 1.7;
       overflow-x: hidden;
+      transition: background 0.2s, color 0.2s;
     }
 
     /* NAV */
@@ -37,13 +58,71 @@
       justify-content: space-between;
       align-items: center;
       padding: 1.25rem 4rem;
-      background: rgba(240, 242, 245, 0.85);
+      background: var(--nav-bg);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--border);
+      transition: background 0.2s;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+    }
+
+    .theme-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2rem;
+      height: 2rem;
+      padding: 0;
+      border: none;
+      background: transparent;
+      color: var(--ink);
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .theme-toggle:hover {
+      transform: scale(1.08);
+    }
+
+    .theme-toggle svg {
+      width: 1.35rem;
+      height: 1.35rem;
+    }
+
+    .theme-toggle-circle {
+      transform-origin: center;
+      transition: transform 0.4s ease;
+    }
+
+    .theme-toggle-clip {
+      transition: d 0.4s ease;
+    }
+
+    .theme-toggle-ray {
+      transform-origin: center;
+      transition: transform 0.4s ease;
+      transition-delay: 60ms;
+    }
+
+    html[data-theme="dark"] .theme-toggle-circle {
+      transform: scale(1.7);
+    }
+
+    html[data-theme="dark"] .theme-toggle-clip {
+      d: path("M0 2h13a1 1 0 0010 10v14H0Z");
+    }
+
+    html[data-theme="dark"] .theme-toggle-ray {
+      transform: rotate(45deg) scale(0);
+      transition-delay: 0s;
     }
 
     .nav-logo {
-      font-family: 'Jost', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 1.2rem;
       letter-spacing: 0.05em;
       text-decoration: none;
@@ -90,7 +169,7 @@
     }
 
     .hero-name {
-      font-family: 'Jost', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: clamp(3.5rem, 8vw, 6rem);
       line-height: 1.05;
       font-weight: 700;
@@ -98,8 +177,8 @@
     }
 
     .hero-name em {
-      font-style: italic;
-      color: #AED9E0;
+      font-style: normal;
+      color: var(--ink);
     }
 
     .hero-tagline {
@@ -151,9 +230,9 @@
       transform: translateY(-50%);
       width: 22vw;
       max-width: 320px;
-      aspect-ratio: 1;
-      background: #AED9E0;
-      border-radius: 50%;
+      aspect-ratio: 3 / 4;
+      border-radius: 8px;
+      overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -165,7 +244,6 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      border-radius: 50%;
     }
 
     /* SECTIONS */
@@ -193,7 +271,7 @@
     }
 
     .section-title {
-      font-family: 'Jost', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: clamp(2rem, 4vw, 3rem);
       font-weight: 400;
       line-height: 1.2;
@@ -223,7 +301,14 @@
 
     .about-text p:first-of-type {
       font-size: 1.15rem;
+    }
+
+    .about-text p:nth-of-type(odd) {
       color: var(--ink);
+    }
+
+    .about-text p:nth-of-type(even) {
+      color: var(--muted);
     }
 
     .skills-list {
@@ -242,7 +327,7 @@
     }
 
     .about-sidebar h3 {
-      font-family: 'Jost', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 1.1rem;
       margin-bottom: 1rem;
       margin-top: 2.5rem;
@@ -253,6 +338,10 @@
     .about-sidebar p, .about-sidebar li {
       color: var(--muted);
       font-size: 0.9rem;
+    }
+
+    .about-sidebar .edu-line {
+      font-size: 1.15rem;
     }
 
     .about-sidebar ul {
@@ -279,21 +368,17 @@
 
     .portfolio-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 1.5px;
-      background: var(--border);
-      border: 1.5px solid var(--border);
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.5rem;
     }
 
     .project-card {
       background: var(--bg);
-      padding: 2.5rem;
-      transition: background 0.2s;
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.25s, box-shadow 0.25s;
       cursor: default;
-    }
-
-    .project-card:hover {
-      background: var(--card);
     }
 
     .project-card.has-link {
@@ -301,77 +386,28 @@
     }
 
     .project-card.has-link:hover {
-      background: var(--card);
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(28, 32, 40, 0.1);
     }
 
-    .project-card.has-bg-image {
-      position: relative;
+    .project-image {
+      width: 100%;
+      aspect-ratio: 4 / 3;
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-      overflow: hidden;
+      border-bottom: 1px solid var(--border);
     }
 
-    .project-card.has-bg-image::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        to bottom,
-        rgba(255, 255, 255, 0.45) 0%,
-        rgba(255, 255, 255, 0.72) 60%,
-        rgba(255, 255, 255, 0.88) 100%
-      );
-      transition: opacity 0.3s;
-    }
-
-    .project-card.has-bg-image:hover::before {
-      opacity: 1;
-    }
-
-    .project-card.has-bg-image > * {
-      position: relative;
-      z-index: 1;
-    }
-
-    .project-card.has-bg-image .project-number {
-      color: rgba(28, 32, 40, 0.2);
-    }
-
-    .project-card.has-bg-image .project-title {
-      color: var(--ink);
-    }
-
-    .project-card.has-bg-image .project-desc {
-      color: var(--muted);
-    }
-
-    .project-card.has-bg-image .project-award {
-      color: var(--muted);
-      border-color: rgba(28, 32, 40, 0.2);
-    }
-
-    .project-card.has-bg-image .project-award::before {
-      color: var(--accent);
-    }
-
-    .project-card.has-bg-image .project-tag {
-      color: var(--accent);
-      border-color: rgba(91, 127, 166, 0.5);
-    }
-
-    .project-card.has-bg-image .project-link {
-      color: var(--ink);
-      border-color: rgba(28, 32, 40, 0.25);
-    }
-
-    .project-card.has-bg-image .project-link:hover {
-      color: var(--accent);
-      border-color: var(--accent);
+    .project-body {
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
     }
 
     .project-number {
-      font-family: 'Jost', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-style: italic;
       font-size: 2rem;
       color: var(--border);
@@ -379,7 +415,7 @@
     }
 
     .project-title {
-      font-family: 'Jost', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 1.3rem;
       margin-bottom: 0.75rem;
     }
@@ -463,7 +499,7 @@
     }
 
     .coming-soon span {
-      font-family: 'Jost', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-style: italic;
       font-size: 1.1rem;
     }
@@ -508,11 +544,16 @@
     }
 
     /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
     @media (max-width: 768px) {
       nav { padding: 1rem 1.5rem; }
       #hero, section, footer { padding-left: 1.5rem; padding-right: 1.5rem; }
       .hero-decoration { display: none; }
       .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .portfolio-grid { grid-template-columns: 1fr; }
       footer { flex-direction: column; gap: 1rem; text-align: center; }
     }
   </style>
@@ -521,11 +562,31 @@
 
   <nav>
     <a href="#hero" class="nav-logo">Nancy Liang</a>
-    <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#portfolio">Portfolio</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <clipPath id="theme-toggle-cutout">
+            <path class="theme-toggle-clip" d="M0 0h25a1 1 0 0010 10v14H0Z" />
+          </clipPath>
+          <g stroke="currentColor" stroke-linecap="round">
+            <circle class="theme-toggle-circle" cx="12" cy="12" r="5" fill="currentColor" clip-path="url(#theme-toggle-cutout)" />
+            <path class="theme-toggle-ray" fill="none" stroke-linejoin="round" stroke-miterlimit="0" stroke-width="2" d="M12 1.4v2.4" />
+            <path class="theme-toggle-ray" fill="none" stroke-linejoin="round" stroke-miterlimit="0" stroke-width="2" d="m20.3 3.7-2.5 2.5" />
+            <path class="theme-toggle-ray" fill="none" stroke-linejoin="round" stroke-miterlimit="0" stroke-width="2" d="M22.6 12h-2.4" />
+            <path class="theme-toggle-ray" fill="none" stroke-linejoin="round" stroke-miterlimit="0" stroke-width="2" d="M12 22.6v-2.4" />
+            <path class="theme-toggle-ray" fill="none" stroke-linejoin="round" stroke-miterlimit="0" stroke-width="2" d="M1.4 12h2.4" />
+            <path class="theme-toggle-ray" fill="none" stroke-linejoin="round" stroke-miterlimit="0" stroke-width="2" d="m20.3 20.3-2.5-2.5" />
+            <path class="theme-toggle-ray" fill="none" stroke-linejoin="round" stroke-miterlimit="0" stroke-width="2" d="m3.7 20.3 2.5-2.5" />
+            <path class="theme-toggle-ray" fill="none" stroke-linejoin="round" stroke-miterlimit="0" stroke-width="2" d="m3.7 3.7 2.5 2.5" />
+          </g>
+        </svg>
+      </button>
+    </div>
   </nav>
 
   <!-- HERO -->
@@ -542,7 +603,7 @@
       </div>
     </div>
     <div class="hero-decoration">
-      <img src="https://i.imgur.com/qrbcfdl.png" alt="" aria-hidden="true" />
+      <img src="profile_pic/IMG_3097.jpeg" alt="" aria-hidden="true" />
     </div>
   </section>
 
@@ -553,16 +614,19 @@
         <div class="section-label">About</div>
         <h2 class="section-title">A little about me</h2>
         <p>
-          Hi! I'm Nancy, a product manager and computer science master's student at the University of Pennsylvania's School of Engineering and Applied Science.
+          Hi, I'm Nancy. I'm a product manager and recent graduate of the University of Pennsylvania's School of Engineering and Applied Science, where I studied Computer Science. I moved to Hong Kong in September 2026 under the Top Talent Pass Scheme and I'm so excited to be here.
         </p>
         <p>
-          I'm passionate about AI and building projects that make life better for people.
+          I'm passionate about using AI to build projects that make life better for people.
         </p>
         <p>
-          I also care about creating community as President of CIT59x, the student body organization of my master's program. I oversee the organizing of all social events, career programming, student advocacy, alumni relations, trips, and the annual Hackathon for my program. You can check out some of our going-ons <a href="https://www.instagram.com/cit59x/" target="_blank" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(91,127,166,0.4); transition: border-color 0.2s;">here</a>.
+          I also care deeply about creating community, because as AI becomes more and more capable of handling technical tasks, our ability to connect and communicate with each other becomes increasingly important.
         </p>
         <p>
-          In my free time, I enjoy <a href="https://www.instagram.com/studio.lishu" target="_blank" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(91,127,166,0.4); transition: border-color 0.2s;">creating pottery</a> and running road races.
+          As a student, I was President of CIT59x, the student body organization of my master's program. I oversaw the organizing of all social events, career programming, student advocacy, alumni relations, trips, and the annual Hackathon for my program. You can check out some of our going-ons <a href="https://www.instagram.com/cit59x/" target="_blank" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(91,127,166,0.4); transition: border-color 0.2s;">here</a>.
+        </p>
+        <p>
+          In my free time, I enjoy <a href="pottery.html" target="_blank" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(91,127,166,0.4); transition: border-color 0.2s;">creating pottery</a> and running road races. I've completed 6 half marathons, the Cherry Blossom 10-miler, and many other shorter races. 
         </p>
         <div class="skills-list">
           <span class="skill-tag">Python</span>
@@ -576,8 +640,12 @@
       </div>
       <div class="about-sidebar">
         <h3>Education</h3>
-        <p> Master of Computer Science and Information Technology <br/>(renamed Master of Applied Science in Computer Science)</p> <br/>University of Pennsylvania, SEAS</p>
-        <p style="margin-top: 0.75rem;">Awarded the Outstanding Service Award, a SEAS-wide graduation award, for significant contributions that enhance the social well-being of other Penn Engineering students.</p>
+        <p class="edu-line"><strong>University of Pennsylvania, SEAS</strong></p>
+        <p class="edu-line"><strong>Master of Applied Science in Computer Science</strong></p>
+        <p style="margin-top: 0.75rem;">Awarded the Outstanding Service Award, a SEAS-wide graduation award, for significant contributions that enhance the social wellbeing of other Penn Engineering students.</p>
+
+        <p class="edu-line" style="margin-top: 1.5rem;"><strong>Cornell University</strong></p>
+        <p class="edu-line">B.S. in Industrial and Labor Relations</p>
 
         <h3>Coursework</h3>
         <ul>
@@ -604,64 +672,77 @@
     <p class="portfolio-intro">A selection of projects I've built and shipped.</p>
     <div class="portfolio-grid">
 
-      <div class="project-card has-link has-bg-image" onclick="location.href='project-sofi.html'" style="background-image: url('https://i.imgur.com/Fw8RkfS.png')">
-        <div class="project-number">01</div>
-        <h3 class="project-title">Social Proof Module — SoFi</h3>
-        <p class="project-desc">Executed 0 to 1 creation of two dynamic display components on SoFi.com surfacing real-time metrics (e.g., loan issuances in the last 7 days, page views) to 1M+ monthly visitors, driving a 7% lift in conversion rates.</p>
-        <div class="project-awards">
-          <span class="project-award">7% Conversion Lift</span>
-          <span class="project-award">1M+ Monthly Visitors</span>
-          <span class="project-award">30% Faster Turnaround</span>
+      <div class="project-card has-link" onclick="location.href='project-sofi.html'">
+        <div class="project-image" style="background-image: url('sofi_social_proof.jpg')"></div>
+        <div class="project-body">
+          <div class="project-number">01</div>
+          <h3 class="project-title">Social Proof Module — SoFi</h3>
+          <p class="project-desc">Executed 0 to 1 creation of two dynamic display components on SoFi.com surfacing real-time metrics (e.g., loan issuances in the last 7 days, page views) to 1M+ monthly visitors, driving a 7% lift in conversion rates.</p>
+          <span class="project-link">View Project →</span>
         </div>
-        <div class="project-tags">
-          <span class="project-tag">Product Management</span>
-          <span class="project-tag">A/B Testing</span>
-          <span class="project-tag">Data Display</span>
-          <span class="project-tag">User Research</span>
-        </div>
-        <span class="project-link">View Project →</span>
       </div>
 
-      <div class="project-card has-link has-bg-image" onclick="location.href='project-nara.html'" style="background-image: url('https://i.imgur.com/aX5g4rs.png')">
-        <div class="project-number">02</div>
-        <h3 class="project-title">Nara</h3>
-        <p class="project-desc">A Chrome extension designed to give users a gentle, joyful start to their day by combatting the feeling of being stuck with actionable to-do lists.</p>
-        <div class="project-awards">
-          <span class="project-award">Top 3 Overall — MCIT Hackathon 2025</span>
-          <span class="project-award">Most Artful Design</span>
+      <div class="project-card has-link" onclick="location.href='project-nara.html'">
+        <div class="project-image" style="background-image: url('https://i.imgur.com/aX5g4rs.png')"></div>
+        <div class="project-body">
+          <div class="project-number">02</div>
+          <h3 class="project-title">Nara</h3>
+          <p class="project-desc">A Chrome extension designed to give users a gentle, joyful start to their day by combatting the feeling of being stuck with actionable to-do lists.</p>
+          <span class="project-link">View Project →</span>
         </div>
-        <div class="project-tags">
-          <span class="project-tag">HTML</span>
-          <span class="project-tag">CSS</span>
-          <span class="project-tag">JavaScript</span>
-          <span class="project-tag">Chrome Extension</span>
-        </div>
-        <span class="project-link">View Project →</span>
       </div>
 
-      <div class="project-card has-link has-bg-image" onclick="location.href='project-lingolink.html'" style="background-image: url('https://i.imgur.com/8gSiBD3.png')">
-        <div class="project-number">03</div>
-        <h3 class="project-title">LingoLink</h3>
-        <p class="project-desc">A browser-based strategy game that tests your knowledge of world geography and linguistics. Starting from a randomly assigned country, players chain connections between countries through shared languages, balancing risk and reward to maximize their score.</p>
-        <div class="project-tags">
-          <span class="project-tag">Game</span>
-          <span class="project-tag">Next.js</span>
-          <span class="project-tag">TypeScript</span>
-          <span class="project-tag">Java</span>
+      <div class="project-card has-link" onclick="location.href='project-lingolink.html'">
+        <div class="project-image" style="background-image: url('lingolink.png')"></div>
+        <div class="project-body">
+          <div class="project-number">03</div>
+          <h3 class="project-title">LingoLink</h3>
+          <p class="project-desc">A browser-based strategy game that tests your knowledge of world geography and linguistics. Starting from a randomly assigned country, players chain connections between countries through shared languages, balancing risk and reward to maximize their score.</p>
+          <span class="project-link">View Project →</span>
         </div>
-        <span class="project-link">View Project →</span>
       </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-label">Get in touch</div>
+    <h2 class="section-title">Let's connect</h2>
+    <p class="portfolio-intro">
+      nancy dot fs dot liang @ gmail
+    </p>
+    <div class="hero-links">
+      <a href="mailto:nancy.fs.liang@gmail.com" class="btn">Email Me</a>
+      <a href="https://github.com/nliang16" target="_blank" class="btn btn-ghost">GitHub ↗</a>
+      <a href="https://www.linkedin.com/in/nancyliang16/" target="_blank" class="btn btn-ghost">LinkedIn ↗</a>
     </div>
   </section>
 
   <footer>
     <p>© 2026 Nancy Liang</p>
     <div class="footer-links">
-      <a href="mailto:nanliang@seas.upenn.edu">Email</a>
-      <a href="https://github.com" target="_blank">GitHub</a>
-      <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+      <a href="mailto:nancy.fs.liang@gmail.com">Email</a>
+      <a href="https://github.com/nliang16" target="_blank">GitHub</a>
+      <a href="https://www.linkedin.com/in/nancyliang16/" target="_blank">LinkedIn</a>
     </div>
   </footer>
+
+  <script>
+    (function () {
+      const toggle = document.getElementById('theme-toggle');
+      function applyTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+      }
+      applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light');
+      if (toggle) {
+        toggle.addEventListener('click', () => {
+          const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+          try { localStorage.setItem('theme', next); } catch (e) {}
+          applyTheme(next);
+        });
+      }
+    })();
+  </script>
 
 </body>
 </html>
